@@ -1,0 +1,191 @@
+// COLORS FROM STYLE GUIDE
+// https://company-35036.frontify.com/d/1CDt2h7WxNUk/style-guide#/basics/colors
+$petrol: #2D557D;
+$emerald: #58CB8E;
+$silverTree: #63C08C;
+
+$blue: #268EFF;
+$blueMedium: #7DBBFF;
+$blueLight: #E5F2FF;
+
+$white:#ffffff;
+$black:#000000;
+
+$dark:#444444;
+$darkMedium:#AAAAAA;
+$darkLight:#C1C1C1;
+$silver:#DDDDDD;
+$silverMedium:#EEEEEE;
+$silverLight:#F8F8F8;
+
+// HTML ELEMENTS
+
+h3, h5{
+    padding: 5px;
+}
+
+body { 
+    font-family: HelveticaNeueLTPro-Roman;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+a:hover, a:focus, a{
+    color: $blue;
+}
+
+// Sherpanyfying all labels :D
+.label{
+    border-radius: 4px;
+    background: $emerald;
+}
+
+// TABS
+.tabs{
+
+    border: none;
+    
+    .tabs-title{
+
+    }
+
+    .tabs-title>a {
+        display: block;
+        padding: 1.25rem 1.5rem;
+        font-size: 0.9rem;
+        line-height: 1;
+        color: $darkLight;
+    }
+
+    .tabs-title>a:focus, .tabs-title>a[aria-selected='true'] {
+        background: $white;
+        color: $black;
+        border-bottom: 1px solid $blue;
+    }
+}
+
+// TABS CONTENT
+.tabs-content{
+    
+    .tabs-panel{
+        ul li a:first-child{
+            margin: 0 20px 0 10px;
+        }
+
+        ul li a span.label{
+            margin: 0 10px;
+        }
+
+        .accordion-title {
+            position: relative;
+            display: block;
+            padding: 1.25rem 1rem;
+            border: 1px solid #e6e6e6;
+            border-bottom: 0;
+            font-size: .75rem;
+            line-height: 1;
+            color: $black;
+        }
+
+        .accordion-title::before {
+            position: absolute;
+            top: 50%;
+            right: 1rem;
+            margin-top: -0.5rem;
+            content: '';
+        }
+
+        .main-title{
+            font-weight: bold;
+        }
+
+        .new-title{
+            color: $silver;
+        }
+    }
+
+    .tabs-panel-no-padding{
+        padding: 0px;
+    }
+
+}
+
+// BUTTON PANEL
+.button-panel{
+    margin-top: 50px;
+    border-top: 1px solid $silverMedium;
+    padding: 20px 20px 20px 10px;
+}
+
+.btn-sherp-primary{
+    background-color: $blue;
+    color: $white;
+    border-radius: 5px;
+    width: 100px;
+    padding: 0.6em 1em;
+    font-family: HelveticaNeueLTPro-Bd;
+}
+
+.btn-sherp-primary.btn-small{
+    width: inherit;
+}
+
+// MODAL
+.reveal.without-overlay {
+
+    width: 400px;
+    position: fixed;
+    right: 30px !important;
+    left: inherit !important;
+    padding: 0px;
+
+    .modal-box{
+        padding:10px;
+        border-bottom: 1px solid $darkMedium;
+
+        > span{
+            font-family: HelveticaNeueLTPro-Bd;
+            font-size: small;
+        }
+
+        .title-soft{
+            color: $darkMedium;
+        }
+
+        i{
+            color: $darkLight;
+        }
+
+        .dropzone{
+            border: 2px dashed $blue;
+            text-align: center;
+            padding: 10px;
+            color: $blue;
+
+            i{
+                color: $blue;
+            }
+        }
+
+        .browse{
+            text-align: right;
+            font-size: small;
+        }
+
+        .msg{
+            display: none;
+            font-size: small;
+            text-align: center;
+        }
+
+        #browse_file{
+            display:none
+        }
+    }
+}
+
+// DROPZONE: To hide some elements for demo purpose :D
+.dz-success-mark, .dz-error-mark{
+    display: none !important;
+}
+

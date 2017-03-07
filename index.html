@@ -1,0 +1,133 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foundation for Sites</title>
+    <link rel="stylesheet" type="text/css" href="fonts/MyFontsWebfontsKit.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+</head>
+<body>
+
+    <!-- ADD DOCUMENT MODAL -->
+    <div class="reveal" id="addDocumentModal" data-reveal data-options="closeOnClick:false;" data-overlay="false">
+        <div class="modal-box">
+            <span>Add documents to agenda items</span>
+            <button class="close-button" data-close aria-label="Close reveal" type="button">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="modal-box">
+            <form action="/file-upload" class="dropzone" id="dropzone"></form>
+            <p class="browse">or <a href="#" id="browse_link" onclick="browseFiles();">Browse your computer</a></p>
+            
+            <p class="msg"></p>
+
+            <a class="button primary btn-sherp-primary btn-small" href="#" onclick="wowIt();">
+                <i class="fa fa-magic" aria-hidden="true"></i> Allocate
+            </a>
+        </div>
+
+        <div class="modal-box">
+            <span class="title-soft">Available Documents (0)</span>
+        </div>
+
+        <div class="modal-box">
+            <i class="fa fa-search" aria-hidden="true"></i> <span  class="title-soft">Search document...</span>
+        </div>
+    </div>
+
+
+    <h5>GSMM KW 6</h5>
+
+    <!-- TABS -->
+    <ul class="tabs" data-tabs id="example-tabs">
+        <li class="tabs-title"><a href="#panel1" aria-selected="true">Details</a></li>
+        <li class="tabs-title is-active"><a href="#panel2">Agenda</a></li>
+    </ul>
+
+    <!-- TABS - CONTENT -->
+    <div class="tabs-content" data-tabs-content="example-tabs">
+        
+        <!-- PANEL 1 -->
+        <div class="tabs-panel" id="panel1">
+        
+        </div>
+
+        <!-- PANEL 2 -->
+        <div class="tabs-panel tabs-panel-no-padding is-active" id="panel2">
+            
+            <!-- AGENDA ITEMS -->
+            <ul class="accordion">
+                <li id="1_admin" class="accordion-item is-active" data-accordion-item>
+                    <a href="#" class="accordion-title main-title"><span>1</span> Admin</a>
+                </li>
+
+                <li id="2_minutes_last_meeting" class="accordion-item" data-accordion-item>
+                    <a href="#" class="accordion-title main-title" ><span>2</span> Minutes Last Meeting</a>
+                </li>
+
+                <li id="3_performance_key_initiatives" class="accordion-item" data-accordion-item>
+                    <a href="#" class="accordion-title main-title"><span>3</span> Performance / Key Initiatives</a>
+                </li>
+
+                <li id="4_management_update" class="accordion-item" data-accordion-item >
+                    <a href="#" class="accordion-title main-title"><span>4</span> Management Update</a>
+                </li>
+
+                <li id="5_country_managers_outlook" class="accordion-item" data-accordion-item>
+                    <a href="#" class="accordion-title main-title"><span>5</span> Country Managers Outlook</a>
+                </li>
+
+                <li id="5-1_switzerland_austria_italy" class="accordion-item" data-accordion-item>
+                    <a href="#" class="accordion-title"><span>5.1</span> Switzerland / Austria / Italy</a>
+                </li> 
+
+                <li id="5-2_germany" class="accordion-item" data-accordion-item >
+                    <a href="#" class="accordion-title"><span>5.2</span> Germany</a>
+                </li>
+
+                <li id="5-3_france" class="accordion-item" data-accordion-item>
+                    <a href="#" class="accordion-title"><span>5.3</span> France</a>
+                </li> 
+
+                <li id="6_sales_marketing" class="accordion-item" data-accordion-item>
+                    <a href="#" class="accordion-title main-title"><span>6</span> Sales Marketing</a>
+                </li> 
+
+                <li class="accordion-item" data-accordion-item>
+                    <a href="#" class="accordion-title new-title"><span>7</span> Enter a new agenda item...</a>
+                </li> 
+            </ul>
+
+        </div>
+
+        
+    </div>
+    <!-- END TABS -->
+
+    <!-- BUTTON PANEL -->
+    <div class="button-panel">
+        <div class="small-6 columns">
+            <a class="button primary btn-sherp-primary float-left" href="#">Publish</a>
+        </div>
+        <div class="small-6 columns">
+            <!-- BUTTON: NEW DOCUMENT MODAL -->
+
+            <a class="button primary btn-sherp-primary float-right" href="#" data-toggle="addDocumentModal">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+            </a>
+        </div>
+    </div>
+
+    
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/what-input/dist/what-input.js"></script>
+    <script src="bower_components/foundation-sites/dist/js/foundation.js"></script>
+    <script src="js/dropzone.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
