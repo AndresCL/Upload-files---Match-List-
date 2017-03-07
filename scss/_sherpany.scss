@@ -184,8 +184,16 @@ a:hover, a:focus, a{
     }
 }
 
-// DROPZONE: To hide some elements for demo purpose :D
+// DROPZONE
+
+// To hide some elements for demo purpose :D
 .dz-success-mark, .dz-error-mark{
     display: none !important;
+}
+
+.reveal.without-overlay .modal-box .dropzone{
+    max-height: 300px;
+    height: initial;
+    overflow-y: scroll;
 }
 

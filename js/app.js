@@ -94,15 +94,22 @@ $(document).ready(function(){
             // Each file name chunks
             $.each(filename_chunks, function(idxchunk, name_chunk) {
             
-                // If container txt has any part of the string name
-                if (agenda_item.txt.indexOf(name_chunk) >= 0){
+                // Split agenda title in chunks so we can find in two ways needle->haystack and haystack->needle
+                var agenda_title_chunk = agenda_item.txt.split(" ");
 
-                    // We append the to-be-uploaded document name to it as label
-                    $("#" + agenda_item.id + " a").append('<span class="magic-label label">' + name + '</span>');
+                // Each agenda title chunks
+                $.each(agenda_title_chunk, function(idxachunk, agenda_item_chunk) {
 
-                    // Return false to avoid double label if string is found more than once per item
-                    return false;
-                }
+                    // If container txt has any part of the string name
+                    if (agenda_item.txt.indexOf(name_chunk) >= 0 || name_chunk.indexOf(agenda_item_chunk) >= 0){
+
+                        // We append the to-be-uploaded document name to it as label
+                        $("#" + agenda_item.id + " a").append('<span class="magic-label label">' + name + '</span>');
+
+                        // Return false to avoid double label if string is found more than once per item
+                        return false;
+                    }
+                });
 
             });
         });
