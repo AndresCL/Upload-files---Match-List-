@@ -4,6 +4,7 @@ $(document).foundation();
 // Initialize
 var wowIt;
 var browseFiles;
+var removeAllFiles;
 
 // On Ready
 $(document).ready(function(){
@@ -43,12 +44,36 @@ $(document).ready(function(){
             this.on( 'reset', function(){
                 this.removeAllFiles(true);
             });
+
+            // Listener to see when documents are added to dropzone to enable/disable 
+            // allocate button
+            this.on("addedfile", function(file) { 
+                
+                $('#btn_allocate').attr( "disabled", false);
+                $('#btn_remove_files').attr( "disabled", false);
+
+            });
+
+            // If file is removed, count total items, and see if allocate button
+            // needs be disabled
+            this.on("removedfile", function(file) {
+
+                if(this.files.length == 0){
+                    
+                    $('#btn_allocate').attr( "disabled", true);
+                    $('#btn_remove_files').attr( "disabled", true);
+                }
+            });
         }
     };
 
     // Triggers dropzone to select files
     browseFiles = function(){
         $("#dropzone").click();
+    }
+
+    removeAllFiles = function removeAllFiles(){
+        dropzone.removeAllFiles(true);
     }
 
     ///////////////////////////////////////////////////////////////////

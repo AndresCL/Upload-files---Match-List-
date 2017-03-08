@@ -26,9 +26,13 @@
             
             <p class="msg"></p>
 
-            <a class="button primary btn-sherp-primary btn-small" href="#" onclick="wowIt();">
+            <button id="btn_allocate" class="button primary btn-sherp-primary btn-small" href="#" onclick="wowIt();" disabled="disabled">
                 <i class="fa fa-magic" aria-hidden="true"></i> Allocate
-            </a>
+            </button>
+
+            <button id="btn_remove_files" class="button primary btn-sherp-primary btn-small float-right" href="#" onclick="removeAllFiles();" disabled="disabled">
+                <i class="fa fa-trash-o" aria-hidden="true"></i> Remove Files
+            </button>
         </div>
 
         <div class="modal-box">
