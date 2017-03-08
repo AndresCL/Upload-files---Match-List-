@@ -72,8 +72,13 @@ $(document).ready(function(){
         $("#dropzone").click();
     }
 
+    // removeAllFiles
     removeAllFiles = function removeAllFiles(){
+        
         dropzone.removeAllFiles(true);
+        
+        // If files are removed, remove labels too
+        $(".magic-label").remove();
     }
 
     ///////////////////////////////////////////////////////////////////
@@ -116,25 +121,53 @@ $(document).ready(function(){
         // Each agenda items
         $.each(containers, function(idxcont, agenda_item) {
 
+            // Flag to assing only one tag per title
+            var agendaCycle = false;
+
             // Each file name chunks
             $.each(filename_chunks, function(idxchunk, name_chunk) {
             
-                // Split agenda title in chunks so we can find in two ways needle->haystack and haystack->needle
-                var agenda_title_chunk = agenda_item.txt.split(" ");
+                if(!agendaCycle){
 
-                // Each agenda title chunks
-                $.each(agenda_title_chunk, function(idxachunk, agenda_item_chunk) {
+                    // Split agenda title in chunks so we can find in two ways needle->haystack and haystack->needle
+                    var agenda_title_chunk = agenda_item.txt.split(" ");
 
-                    // If container txt has any part of the string name
-                    if (agenda_item.txt.indexOf(name_chunk) >= 0 || name_chunk.indexOf(agenda_item_chunk) >= 0){
+                    // Each agenda title chunks
+                    $.each(agenda_title_chunk, function(idxachunk, agenda_item_chunk) {
 
-                        // We append the to-be-uploaded document name to it as label
-                        $("#" + agenda_item.id + " a").append('<span class="magic-label label">' + name + '</span>');
+                        // Try to parse float if agenda item chunk is number (eg: 2.1 or 3)
+                        var float_name_chunk = parseFloat(agenda_item_chunk);
 
-                        // Return false to avoid double label if string is found more than once per item
-                        return false;
-                    }
-                });
+                        // If isn't number try to find 
+                        if(Number.isNaN(float_name_chunk)){
+
+                            // If container txt has any part of the string name
+                            if (agenda_item_chunk.indexOf(name_chunk) >= 0 || name_chunk.indexOf(agenda_item_chunk) >= 0){
+
+                                // We append the to-be-uploaded document name to it as label
+                                $("#" + agenda_item.id + " a").append('<span class="magic-label label">' + name + '</span>');
+
+                                // false to avoid double label if string is found more than once per item
+                                agendaCycle = true;
+                            }
+                        }
+                        else{
+
+                            // If agenda text is equal to file number chunk OR file number chunk is equal to agenda name chunk
+                            if (agenda_item.txt == name_chunk || name_chunk == agenda_item_chunk){
+
+                                // We append the to-be-uploaded document name to it as label
+                                $("#" + agenda_item.id + " a").append('<span class="magic-label label">' + name + '</span>');
+
+                                // Return false to avoid double label if string is found more than once per item
+                                agendaCycle = true;
+                            }
+
+                        }
+                        
+                    });
+
+                }
 
             });
         });
