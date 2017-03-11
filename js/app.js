@@ -5,6 +5,8 @@ $(document).foundation();
 var wowIt;
 var browseFiles;
 var removeAllFiles;
+var filesAllocated = [];
+var filesNotAllocated = [];
 
 // On Ready
 $(document).ready(function(){
@@ -93,23 +95,74 @@ $(document).ready(function(){
         // Remove everything from dropzone
         //dropzone.removeAllFiles(true);
 
-        // Each file
+        // Reset arrays
+        filesAllocated = [];
+        filesNotAllocated = [];
+
+        // MATCHING PROCESS
         for (var i = 0; i < dropzone.files.length; i++)
         {
             // Getting file
             var file = dropzone.files[i];
 
             // Process file name
-            addLabel(file.name);
-        };
+            matchName(file.name);
+        }
 
-        $(".msg").html("We have auto allocated this documents to your agenda topics.").fadeOut(500).fadeIn(1000);
+        // LABELING PROCESS
+        for(var filename in filesAllocated) {
+            
+            // Getting all allocations per file
+            var files = filesAllocated[filename];
+
+            // If this file was allocated more than once
+            if(files.length > 1){
+
+                // Mark it as not allocated
+                filesNotAllocated.push(filename);
+
+                // Remove from allocated
+                delete filesAllocated[filename];
+            }
+            else{
+                // Allocated only once
+                $("#" + files[0].agenda_item + " a").append(files[0].label);
+            }
+        }
+
+        // Reset container
+        $(".msg").html("");
+
+        // Msg for allocated files
+        if(filesAllocated.length > 0)
+            $(".msg").html('<p>We have auto allocated ' +
+                    '<span class="magic-label label">' + filesAllocated.length + '</span>' +
+                    ' document(s) to your agenda topics.</p>').fadeIn(1000);
+
+        // Msg for not allocated files
+        if(filesNotAllocated.length > 0) {
+            
+            // Build not allocated files UI
+            var filesNotAllocatedHtml = 
+                "<p>" + 
+                    "<strong>Following files were not allocated</strong>" +
+                "</p>" +
+                "<ul>";
+                        $.each(filesNotAllocated, function(index, item){
+                            filesNotAllocatedHtml += "<li>" + item + "</li>";
+                        });
+            filesNotAllocatedHtml += 
+                    "</ul>";
+                
+
+            $(".msg").append(filesNotAllocatedHtml).fadeIn(1000);
+        }
 
     }
 
 
-    // addLabel: This function process file name and tries to match with some Agenda Item.
-    function addLabel(name){
+    // matchName: This function process file name and tries to match with some Agenda Item.
+    function matchName(name){
     
         // Getting filename without file format
         var cleanname = name.replace(/\.[^/.]+$/, "").replace("_", " ");
@@ -117,6 +170,8 @@ $(document).ready(function(){
         // If filename has spaces e.g.: "something like this(.doc)" we split it and
         // save into array
         var filename_chunks = cleanname.split(" ");
+
+        var fileAllocated = false;
 
         // Each agenda items
         $.each(containers, function(idxcont, agenda_item) {
@@ -144,11 +199,17 @@ $(document).ready(function(){
                             // If container txt has any part of the string name
                             if (agenda_item_chunk.indexOf(name_chunk) >= 0 || name_chunk.indexOf(agenda_item_chunk) >= 0){
 
+                                // Init array to count how many assignations this file has
+                                if (filesAllocated[name] == null) filesAllocated[name] = [];
+
                                 // We append the to-be-uploaded document name to it as label
-                                $("#" + agenda_item.id + " a").append('<span class="magic-label label">' + name + '</span>');
+                                //$("#" + agenda_item.id + " a").append('<span class="magic-label label">' + name + '</span>');
+                                filesAllocated[name].push({agenda_item: agenda_item.id, 
+                                                    label: '<span class="magic-label label">' + name + '</span>'});
 
                                 // false to avoid double label if string is found more than once per item
                                 agendaCycle = true;
+                                fileAllocated = true;
                             }
                         }
                         else{
@@ -156,11 +217,17 @@ $(document).ready(function(){
                             // If agenda text is equal to file number chunk OR file number chunk is equal to agenda name chunk
                             if (agenda_item.txt == name_chunk || name_chunk == agenda_item_chunk){
 
+                                // Init array to count how many assignations this file has
+                                if (filesAllocated[name] == null) filesAllocated[name] = [];
+
                                 // We append the to-be-uploaded document name to it as label
-                                $("#" + agenda_item.id + " a").append('<span class="magic-label label">' + name + '</span>');
+                                //$("#" + agenda_item.id + " a").append('<span class="magic-label label">' + name + '</span>');
+                                filesAllocated[name].push({agenda_item: agenda_item.id, 
+                                                    label: '<span class="magic-label label">' + name + '</span>'});
 
                                 // Return false to avoid double label if string is found more than once per item
                                 agendaCycle = true;
+                                fileAllocated = true;
                             }
 
                         }
@@ -171,6 +238,14 @@ $(document).ready(function(){
 
             });
         });
+
+        // Save files categorized in allocated and not allocated
+        if(!fileAllocated){
+            filesNotAllocated.push(name);
+        }
+        // else{
+        //     filesAllocated.push(name);
+        // }
 
     }
 

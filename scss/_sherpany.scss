@@ -176,6 +176,15 @@ a:hover, a:focus, a{
             display: none;
             font-size: small;
             text-align: center;
+
+            p{
+                text-align: left;
+                margin-bottom: 0.5em;
+            }
+
+            ul li{
+                text-align: left;
+            }
         }
 
         #browse_file{
