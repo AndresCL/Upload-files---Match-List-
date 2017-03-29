@@ -1,4 +1,5 @@
-# sherpany_demo
+# Upload Files
+This project, matches files to be uploaded to a item in a list. This uses dropzone.js (www.dropzonejs.com).
 
 Description: 
 
